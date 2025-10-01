@@ -59,6 +59,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up repo
+        run: |
+          echo "deb http://gb.archive.ubuntu.com/ubuntu jammy main" | sudo tee -a /etc/apt/sources.list
+          sudo apt update
 
       - name: Install webkit2gtk-4.0
         uses: awalsh128/cache-apt-pkgs-action@latest
