@@ -1,4 +1,4 @@
-module github.com/RiV-chain/RiV-mesh
+module github.com/RiV-chain/v6Space
 
 go 1.18
 

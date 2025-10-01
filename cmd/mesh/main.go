@@ -20,17 +20,17 @@ import (
 	"github.com/hjson/hjson-go"
 	"github.com/kardianos/minwinsvc"
 
-	//"github.com/RiV-chain/RiV-mesh/src/address"
+	//"github.com/RiV-chain/v6Space/src/address"
 
-	"github.com/RiV-chain/RiV-mesh/src/config"
-	"github.com/RiV-chain/RiV-mesh/src/defaults"
+	"github.com/RiV-chain/v6Space/src/config"
+	"github.com/RiV-chain/v6Space/src/defaults"
 
-	"github.com/RiV-chain/RiV-mesh/src/core"
-	//"github.com/RiV-chain/RiV-mesh/src/ipv6rwc"
-	"github.com/RiV-chain/RiV-mesh/src/multicast"
-	"github.com/RiV-chain/RiV-mesh/src/restapi"
-	"github.com/RiV-chain/RiV-mesh/src/tun"
-	"github.com/RiV-chain/RiV-mesh/src/version"
+	"github.com/RiV-chain/v6Space/src/core"
+	//"github.com/RiV-chain/v6Space/src/ipv6rwc"
+	"github.com/RiV-chain/v6Space/src/multicast"
+	"github.com/RiV-chain/v6Space/src/restapi"
+	"github.com/RiV-chain/v6Space/src/tun"
+	"github.com/RiV-chain/v6Space/src/version"
 )
 
 type node struct {
@@ -229,7 +229,7 @@ func run(args rivArgs, sigCh chan os.Signal) {
 		return
 	}
 
-	// Setup the RiV-mesh node itself.
+	// Setup the v6Space node itself.
 	{
 		sk, err := hex.DecodeString(cfg.PrivateKey)
 		if err != nil {

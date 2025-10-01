@@ -16,13 +16,13 @@ import (
 	"github.com/Arceliar/phony"
 	"github.com/gologme/log"
 
-	"github.com/RiV-chain/RiV-mesh/src/core"
+	"github.com/RiV-chain/v6Space/src/core"
 	"golang.org/x/net/ipv6"
 )
 
 // Multicast represents the multicast advertisement and discovery mechanism used
-// by RiV-mesh to find peers on the same subnet. When a beacon is received on a
-// configured multicast interface, RiV-mesh will attempt to peer with that node
+// by v6Space to find peers on the same subnet. When a beacon is received on a
+// configured multicast interface, v6Space will attempt to peer with that node
 // automatically.
 type Multicast struct {
 	phony.Inbox

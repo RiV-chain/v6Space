@@ -10,7 +10,7 @@ import (
 	"github.com/hjson/hjson-go"
 	"golang.org/x/text/encoding/unicode"
 
-	"github.com/RiV-chain/RiV-mesh/src/defaults"
+	"github.com/RiV-chain/v6Space/src/defaults"
 )
 
 type CmdLineEnv struct {

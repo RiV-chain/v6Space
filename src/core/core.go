@@ -16,7 +16,7 @@ import (
 	"github.com/gologme/log"
 	signals "github.com/vorot93/golang-signals"
 
-	"github.com/RiV-chain/RiV-mesh/src/version"
+	"github.com/RiV-chain/v6Space/src/version"
 )
 
 // The Core object represents the Mesh node. You should create a Core
