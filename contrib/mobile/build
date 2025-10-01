@@ -34,7 +34,6 @@ fi
 
 if [ $IOS ]; then
   echo "Building framework for iOS"
-  go get golang.org/x/mobile/bind
   gomobile bind \
     -target ios -tags mobile -o Mesh.xcframework \
     -ldflags="$LDFLAGS $STRIP" -gcflags="$GCFLAGS" \
@@ -43,10 +42,10 @@ fi
 
 if [ $ANDROID ]; then
   echo "Building aar for Android"
-  go get golang.org/x/mobile/bind
-  # Set CGO_LDFLAGS for 16kB alignment and optimization and anet lib invalid reference fix
-  env CGO_LDFLAGS="-O2 -s -w -Wl,-z,max-page-size=16384" gomobile bind \
+  # Set CGO_LDFLAGS for 16kB alignment
+  env CGO_LDFLAGS="-O2 -s -w -Wl,-z,max-page-size=16384" GOWORK=off GOPROXY=direct \
+    gomobile bind \
     -androidapi 21 -target android -tags mobile -o mesh.aar \
-    -ldflags="-checklinkname=0 $LDFLAGS $STRIP" -gcflags="$GCFLAGS" \
+    -ldflags="$LDFLAGS $STRIP" -gcflags="$GCFLAGS" \
     ./contrib/mobile ./src/config;
 fi

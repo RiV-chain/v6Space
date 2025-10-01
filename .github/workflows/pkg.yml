@@ -17,14 +17,30 @@ jobs:
         fetch-depth: 0
         fetch-tags: true
 
-    - name: 🐼 Setup go1.22+
+    - name: 🐼 Setup go1.22
       uses: actions/setup-go@v5
       with:
-        go-version: '>=1.22'
+        go-version: '1.22'
 
+    - name: Install NDK
+      run: |
+        wget -q https://dl.google.com/android/repository/android-ndk-r26d-linux.zip
+        unzip -q android-ndk-r26d-linux.zip
+        echo "ANDROID_NDK_HOME=$(pwd)/android-ndk-r26d" >> $GITHUB_ENV
+        echo "NDK_ROOT=$(pwd)/android-ndk-r26d" >> $GITHUB_ENV
+  
     - name: Run build command
       run: |
-        go install golang.org/x/mobile/cmd/gomobile@latest
+        echo $ANDROID_NDK_HOME
+        # First get and install the specific versions
+        go get golang.org/x/mobile@v0.0.0-20240520174638-fa72addaaa1b
+        go get golang.org/x/mobile/cmd/gobind@v0.0.0-20240520174638-fa72addaaa1b
+        go get golang.org/x/mobile/cmd/gomobile@v0.0.0-20240520174638-fa72addaaa1b
+
+        # Use a version that's compatible with Go 1.22
+        go install golang.org/x/mobile/cmd/gomobile@v0.0.0-20240520174638-fa72addaaa1b
+        go install golang.org/x/mobile/cmd/gobind@v0.0.0-20240520174638-fa72addaaa1b
+
         gomobile init
         ./contrib/mobile/build -a
     
