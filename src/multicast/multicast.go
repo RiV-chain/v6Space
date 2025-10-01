@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/wlynxg/anet"
+	"github.com/RiV-chain/v6Space/src/netutil"
 
 	"github.com/Arceliar/phony"
 	"github.com/gologme/log"
@@ -150,7 +150,7 @@ func (m *Multicast) _stop() error {
 func (m *Multicast) _updateInterfaces() {
 	interfaces := m._getAllowedInterfaces()
 	for name, info := range interfaces {
-		addrs, err := anet.InterfaceAddrsByInterface(&info.iface)
+		addrs, err := netutil.InterfaceAddrsByInterface(&info.iface)
 		if err != nil {
 			m.log.Warnf("Failed up get addresses for interface %s: %s", info.iface.Name, err)
 			delete(interfaces, name)
@@ -176,7 +176,7 @@ func (m *Multicast) Interfaces() map[string]net.Interface {
 func (m *Multicast) _getAllowedInterfaces() map[int]*interfaceInfo {
 	interfaces := make(map[int]*interfaceInfo)
 	// Ask the system for network interfaces
-	allifaces, err := anet.Interfaces()
+	allifaces, err := netutil.Interfaces()
 	if err != nil {
 		m.log.Debugf("Failed to get interfaces: %s", err)
 		return nil

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/wlynxg/anet"
+	"github.com/RiV-chain/v6Space/src/netutil"
 
 	"github.com/Arceliar/phony"
 )
@@ -144,7 +144,7 @@ func (l *linkTCP) dialerFor(dst *net.TCPAddr, sintf string) (*net.Dialer, error)
 		Control:   l.tcpContext,
 	}
 	if sintf != "" {
-		i, err := anet.Interfaces()
+		i, err := netutil.Interfaces()
 		if err != nil {
 			return nil, fmt.Errorf("interfaces error: %w", err)
 		}
@@ -165,7 +165,7 @@ func (l *linkTCP) dialerFor(dst *net.TCPAddr, sintf string) (*net.Dialer, error)
 		if ief.Flags&net.FlagUp == 0 {
 			return nil, fmt.Errorf("interface %q is not up", sintf)
 		}
-		addrs, err := anet.InterfaceAddrsByInterface(&ief)
+		addrs, err := netutil.InterfaceAddrsByInterface(&ief)
 		if err != nil {
 			return nil, fmt.Errorf("interface %q addresses not available: %w", sintf, err)
 		}
