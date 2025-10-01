@@ -34,7 +34,7 @@ fi
 
 if [ $IOS ]; then
   echo "Building framework for iOS"
-  go get golang.org/x/mobile/bind
+
   gomobile bind \
     -target ios -tags mobile -o Mesh.xcframework \
     -ldflags="$LDFLAGS $STRIP" -gcflags="$GCFLAGS" \
@@ -43,10 +43,9 @@ fi
 
 if [ $ANDROID ]; then
   echo "Building aar for Android"
-  go get golang.org/x/mobile/bind
   
-  gomobile bind \
+  env CGO_LDFLAGS="-O2 -s -w -Wl,-z,max-page-size=16384" gomobile bind \
     -androidapi 21 -target android -tags mobile -o mesh.aar \
     -ldflags="$LDFLAGS $STRIP" -gcflags="$GCFLAGS" \
-    ./contrib/mobile ./src/config;
+    ./contrib/mobile ./src/config
 fi

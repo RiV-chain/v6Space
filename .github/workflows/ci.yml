@@ -1,4 +1,4 @@
-name: RiV-mesh
+name: CI
 
 on:
   push:
