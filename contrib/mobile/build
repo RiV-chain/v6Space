@@ -44,9 +44,8 @@ fi
 if [ $ANDROID ]; then
   echo "Building aar for Android"
   go get golang.org/x/mobile/bind
-  # Set CGO_LDFLAGS for 16kB alignment and optimization
-
-  CGO_LDFLAGS="-O2 -g -s -w -Wl,-z,max-page-size=16384" gomobile bind \
+  
+  gomobile bind \
     -androidapi 21 -target android -tags mobile -o mesh.aar \
     -ldflags="$LDFLAGS $STRIP" -gcflags="$GCFLAGS" \
     ./contrib/mobile ./src/config;
