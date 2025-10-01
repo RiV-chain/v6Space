@@ -53,6 +53,6 @@ jobs:
         artifact_path: mesh.aar
         artifact_source_path: mesh-sources.jar
         gh_pat: ${{ secrets.MAVEN_PAT }}
-        artifact_id: mesh
+        artifact_id: v6space
         group_id: org.rivchain
         version: ${{ env.PKGVERSION }}
