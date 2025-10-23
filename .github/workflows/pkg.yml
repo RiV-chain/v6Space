@@ -5,6 +5,42 @@ on:
 
 jobs:
 
+  build-libs-ios:
+    name: Build libs (iOS)
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+
+    - name: 🐼 Setup go1.22
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+
+    - name: Install gomobile
+      run: |
+        go get golang.org/x/mobile@v0.0.0-20240520174638-fa72addaaa1b
+        go get golang.org/x/mobile/cmd/gobind@v0.0.0-20240520174638-fa72addaaa1b
+        go get golang.org/x/mobile/cmd/gomobile@v0.0.0-20240520174638-fa72addaaa1b
+        go install golang.org/x/mobile/cmd/gomobile@v0.0.0-20240520174638-fa72addaaa1b
+        go install golang.org/x/mobile/cmd/gobind@v0.0.0-20240520174638-fa72addaaa1b
+        gomobile init
+
+    - name: Run iOS build command
+      run: |
+        ./contrib/mobile/build -i
+        ls -la *
+
+    - name: Get version
+      id: get_version
+      run: |
+        PKGVERSION=$(sh -c './contrib/semver/version.sh --bare') 
+        echo "PKGVERSION=$PKGVERSION" >> $GITHUB_ENV
+
   build-libs-android:
 
     name: Build libs (Android)
