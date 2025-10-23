@@ -75,7 +75,7 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
 
-      - name: Build RiV-mesh
+      - name: Build v6Space
         run: go build -v ./...
 
       - name: Unit tests
@@ -99,7 +99,7 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
 
-      - name: Build RiV-mesh
+      - name: Build v6Space
         run: go build -v ./...
 
       - name: Unit tests
@@ -123,7 +123,7 @@ jobs:
         with:
           go-version: ${{ matrix.goversion }}
 
-      - name: Build RiV-mesh
+      - name: Build v6Space
         run: go build -v ./...
 
       - name: Unit tests

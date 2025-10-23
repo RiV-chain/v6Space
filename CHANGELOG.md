@@ -94,13 +94,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - It is now possible to `addPeer` and `removePeer` using the admin socket again
 - The `getSessions` admin socket call reports number of bytes received and transmitted again
 - The link setup code has been refactored, making it easier to support new peering types in the future
-- RiV-mesh now maintains configuration internally, rather than relying on a shared and potentially mutable structure
+- v6Space now maintains configuration internally, rather than relying on a shared and potentially mutable structure
 
 ### Fixed
 
 - Tracking information about expired root nodes has been fixed, which should hopefully resolve issues with reparenting and connection failures when the root node disappears
 - A bug in the mobile framework code which caused a crash on Android when multicast failed to set up has been fixed
-- RiV-mesh should now shut down gracefully and clean up correctly when running as a Windows service
+- v6Space should now shut down gracefully and clean up correctly when running as a Windows service
 
 ## [0.4.4] - 2022-07-07
 
@@ -112,7 +112,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
-- Go 1.17 is now required to build RiV-mesh
+- Go 1.17 is now required to build v6Space
 
 ## [0.4.3] - 2022-02-06
 
@@ -242,7 +242,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - By encryption public key: `tcp://host:port?curve25519=key`
   - By both: `tcp://host:port?ed25519=key&curve25519=key`
   - By multiple, in case of DNS round-robin or similar: `tcp://host:port?curve25519=key&curve25519=key&ed25519=key&ed25519=key`
-- Some checks to prevent RiV-mesh-over-RiV-mesh peerings have been added
+- Some checks to prevent v6Space-over-v6Space peerings have been added
 - Added support for SOCKS proxy authentication, e.g. `socks://user@password:host/...`
 
 ### Fixed
@@ -276,7 +276,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Windows `.msi` installer files are now supported (bundling the Wireguard TUN driver)
 - NodeInfo code is now actorised, should be more reliable
 - The DHT now tries to store the two closest nodes in either direction instead of one, such that if a node goes offline, the replacement is already known
-- The RiV-mesh API now supports dialing a remote node using the public key instead of the Node ID
+- The v6Space API now supports dialing a remote node using the public key instead of the Node ID
 
 ### Changed
 
@@ -284,7 +284,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - DHT search code has been significantly simplified and processes rumoured nodes in parallel, speeding up search time
 - DHT search results are now sorted
 - The systemd service now handles configuration generation in a different unit
-- The RiV-mesh API now returns public keys instead of node IDs when querying for local and remote addresses
+- The v6Space API now returns public keys instead of node IDs when querying for local and remote addresses
 
 ### Fixed
 
@@ -304,7 +304,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - New API functions `SetMaximumSessionMTU` and `GetMaximumSessionMTU`
 - New command line parameters `-address` and `-subnet` for getting the address/subnet from the config file, for use with `-useconffile` or `-useconf`
-- A warning is now produced in the RiV-mesh output at startup when the MTU in the config is invalid or has been adjusted for some reason
+- A warning is now produced in the v6Space output at startup when the MTU in the config is invalid or has been adjusted for some reason
 
 ### Changed
 
@@ -362,7 +362,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Yggdrasil will now complain more verbosely when a peer URI is incorrectly formatted
 - Soft-shutdown methods have been added, allowing a node to shut down gracefully when terminated
-- New multicast interval logic which sends multicast beacons more often when RiV-mesh is first started to increase the chance of finding nearby nodes quickly after startup
+- New multicast interval logic which sends multicast beacons more often when v6Space is first started to increase the chance of finding nearby nodes quickly after startup
 
 ### Changed
 
@@ -382,7 +382,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - A race condition when dialing a remote node by both the node address and routed prefix simultaneously has been fixed
 - A race condition between the router and the dial code resulting in a panic has been fixed
 - A panic which could occur when the TUN/TAP interface disappears (e.g. during soft-shutdown) has been fixed
-- A bug in the semantic versioning script which accompanies RiV-mesh for builds has been fixed
+- A bug in the semantic versioning script which accompanies v6Space for builds has been fixed
 - A panic which could occur when the TUN/TAP interface reads an undersized/corrupted packet has been fixed
 
 ### Removed
@@ -426,7 +426,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - A number of significant performance regressions introduced in version 0.3.6 have been fixed, resulting in better performance
 - Flow labels are now used to prioritise traffic flows again correctly
-- In low-traffic scenarios where there are multiple peerings between a pair of nodes, RiV-mesh now prefers the most active peering instead of the least active, helping to reduce packet reordering
+- In low-traffic scenarios where there are multiple peerings between a pair of nodes, v6Space now prefers the most active peering instead of the least active, helping to reduce packet reordering
 - The `Listen` statement, when configured as a string rather than an array, will now be parsed correctly
 - The admin socket now returns `coords` as a correct array of unsigned 64-bit integers, rather than the internal representation
 - The admin socket now returns `box_pub_key` in string format again
@@ -452,7 +452,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - This allows Yggdrasil to be integrated directly into other applications and used as a transport
   - IP-specific code has now been moved out of the core `yggdrasil` package, making Yggdrasil effectively protocol-agnostic
 - Multicast peer discovery functionality is now in the `multicast` package
-- Admin socket functionality is now in the `admin` package and uses the RiV-mesh public API
+- Admin socket functionality is now in the `admin` package and uses the v6Space public API
 - TUN/TAP, ICMPv6 and all IP-specific functionality is now in the `tuntap` package
 - `PPROF` debug output is now sent to `stderr` instead of `stdout`
 - Node IPv6 addresses on macOS are now configured as `secured`
@@ -461,7 +461,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 
 - Multicast discovery is no longer disabled if the nominated interfaces aren't available on the system yet, e.g. during boot
-- Multicast interfaces are now re-evaluated more frequently so that RiV-mesh doesn't need to be restarted to use interfaces that have become available since startup
+- Multicast interfaces are now re-evaluated more frequently so that v6Space doesn't need to be restarted to use interfaces that have become available since startup
 - Admin socket error cases are now handled better
 - Various fixes in the TUN/TAP module, particularly surrounding Windows platform support
 - Invalid keys will now cause the node to fail to start, rather than starting but silently not working as before
@@ -488,9 +488,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New multicast behaviour where each multicast interface is given its own link-local listener and does not depend on the `Listen` configuration
 - Blocking detection in the switch to avoid parenting a blocked peer
 - Support for adding and removing listeners and multicast interfaces when reloading configuration during runtime
-- RiV-mesh will now attempt to clean up UNIX admin sockets on startup if left behind by a previous crash
+- v6Space will now attempt to clean up UNIX admin sockets on startup if left behind by a previous crash
 - Admin socket `getTunnelRouting` and `setTunnelRouting` calls for enabling and disabling crypto-key routing during runtime
-- On macOS, RiV-mesh will now try to wake up AWDL on start-up when `awdl0` is a configured multicast interface, to keep it awake after system sleep, and to stop waking it when no longer needed
+- On macOS, v6Space will now try to wake up AWDL on start-up when `awdl0` is a configured multicast interface, to keep it awake after system sleep, and to stop waking it when no longer needed
 - Added `LinkLocalTCPPort` option for controlling the port number that link-local TCP listeners will listen on by default when setting up `MulticastInterfaces` (a node restart is currently required for changes to `LinkLocalTCPPort` to take effect - it cannot be updated by reloading config during runtime)
 
 ### Changed
@@ -508,16 +508,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Handling of `getRoutes` etc in `meshctl` is now working
 - Local interface names are no longer leaked in multicast packets
 - Link-local TCP connections, particularly those initiated because of multicast beacons, are now always correctly scoped for the target interface
-- RiV-mesh now correctly responds to multicast interfaces going up and down during runtime
+- v6Space now correctly responds to multicast interfaces going up and down during runtime
 
 ## [0.3.3] - 2019-02-18
 
 ### Added
 
 - Dynamic reconfiguration, which allows reloading the configuration file to make changes during runtime by sending a `SIGHUP` signal (note: this only works with `-useconffile` and not `-useconf` and currently reconfiguring TUN/TAP is not supported)
-- Support for building RiV-mesh as an iOS or Android framework if the appropriate tools (e.g. `gomobile`/`gobind` + SDKs) are available
+- Support for building v6Space as an iOS or Android framework if the appropriate tools (e.g. `gomobile`/`gobind` + SDKs) are available
 - Connection contexts used for TCP connections which allow more exotic socket options to be set, e.g.
-  - Reusing the multicast socket to allow multiple running RiV-mesh instances without having to disable multicast
+  - Reusing the multicast socket to allow multiple running v6Space instances without having to disable multicast
   - Allowing supported Macs to peer with other nearby Macs that aren't even on the same Wi-Fi network using AWDL
 - Flexible logging support, which allows for logging at different levels of verbosity
 
@@ -602,7 +602,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Cleaned up some of the parameter naming in the admin socket
 - Latency-based parent selection for the switch instead of uptime-based (should help to avoid high latency links somewhat)
 - Real peering endpoints now shown in the admin socket `getPeers` call to help identify peerings
-- Reuse the multicast port on supported platforms so that multiple RiV-mesh processes can run
+- Reuse the multicast port on supported platforms so that multiple v6Space processes can run
 - `meshctl` now has more useful help text (with `-help` or when no arguments passed)
 
 ### Fixed

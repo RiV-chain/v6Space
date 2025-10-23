@@ -16,7 +16,7 @@ import (
 	"sync/atomic"
 
 	"github.com/Arceliar/phony"
-	//"github.com/RiV-chain/RiV-mesh/src/address"
+	//"github.com/RiV-chain/v6Space/src/address"
 	//"github.com/Arceliar/phony" // TODO? use instead of mutexes
 )
 

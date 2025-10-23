@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/RiV-chain/RiV-mesh/src/version"
+	"github.com/RiV-chain/v6Space/src/version"
 )
 
 func main() {

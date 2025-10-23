@@ -13,10 +13,10 @@ import (
 	"github.com/Arceliar/phony"
 	"golang.zx2c4.com/wireguard/tun"
 
-	//"github.com/RiV-chain/RiV-mesh/src/address"
-	"github.com/RiV-chain/RiV-mesh/src/core"
-	"github.com/RiV-chain/RiV-mesh/src/defaults"
-	"github.com/RiV-chain/RiV-mesh/src/ipv6rwc"
+	//"github.com/RiV-chain/v6Space/src/address"
+	"github.com/RiV-chain/v6Space/src/core"
+	"github.com/RiV-chain/v6Space/src/defaults"
+	"github.com/RiV-chain/v6Space/src/ipv6rwc"
 )
 
 type MTU uint16
