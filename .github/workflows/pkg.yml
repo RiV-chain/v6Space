@@ -33,13 +33,26 @@ jobs:
     - name: Run iOS build command
       run: |
         ./contrib/mobile/build -i
-        ls -la *
 
     - name: Get version
       id: get_version
       run: |
         PKGVERSION=$(sh -c './contrib/semver/version.sh --bare') 
         echo "PKGVERSION=$PKGVERSION" >> $GITHUB_ENV
+
+    - name: Archive Mesh.xcframework to zip
+      run: |
+        zip -r mesh.zip Mesh.xcframework
+
+    - name: Publish iOS framework to Maven repo
+      uses: RiV-chain/copy-local-file-maven-action@main
+      with:
+        artifact_repo: RiV-chain/artifact
+        artifact_path: mesh.zip
+        gh_pat: ${{ secrets.MAVEN_PAT }}
+        artifact_id: v6space
+        group_id: org.rivchain
+        version: ${{ env.PKGVERSION }}
 
   build-libs-android:
 
